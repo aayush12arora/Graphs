@@ -2,9 +2,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class DFS {
-      
-    static class Edge{
+public class IfGraphIsNotContinuous {
+        static class Edge{
         int src;
         int dest;
 
@@ -33,10 +32,10 @@ graph[5].add(new Edge(5, 6));
 graph[6].add(new Edge(6, 5));
     }
 
-    public static void bfs(ArrayList<Edge> graph []){
+    public static void bfs(ArrayList<Edge> graph [],boolean visited[],int start){
         Queue<Integer> q = new LinkedList<>();
-        boolean visited []= new boolean[graph.length];
-        q.add(graph[0].get(0).src);
+     
+        q.add(start);
         while(!q.isEmpty()){
 int curr = q.remove();
 if(!visited[curr]){
@@ -52,22 +51,18 @@ for (int i = 0; i < graph[curr].size(); i++) {
 
     }
 
-    public static void dfs (ArrayList<Edge> graph[],boolean visited[],int curr){
-        if(visited[curr]==false){
-        System.out.print(curr+" ");
-               visited[curr]=true;
-      
-            for(int i=0;i<graph[curr].size();i++){
-                
-         
+    public static void dfs(ArrayList<Edge> graph[], boolean visited[], int curr) {
+        if (!visited[curr]) {
+            visited[curr] = true;
+            System.out.print(curr + " ");
+          
+            for (int i = 0; i < graph[curr].size(); i++) {
                 Edge e = graph[curr].get(i);
-
                 dfs(graph, visited, e.dest);
-
-            
+            }
         }
     }
-    }
+    
     public static void main(String[] args) {
         int V=7 ;// serven vertices
 /*
@@ -99,12 +94,19 @@ for (int i = 0; i < graph[curr].size(); i++) {
         }
 
         System.out.println("Graph with BFS");
-
-        bfs(graph);
+ boolean vis[]= new boolean[V];
+        for ( int i = 0; i < V; i++) {
+             bfs(graph,vis,i);
+        }
+       
 
         boolean visited[]= new boolean[V];
         System.out.println();
-          System.out.println("Graph with DFS");
-        dfs(graph, visited, graph[0].get(0).src);
+          System.out.println("Graph with DFS if graph is broken into parts");
+
+          for (int i = 0; i <V; i++) {
+            dfs(graph, visited, i); // passing it by makig every vertex as  a starting point
+          }
+       
     }
 }
