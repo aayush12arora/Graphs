@@ -122,6 +122,12 @@ for (int i = 0; i < graph[curr].size(); i++) {
  boolean vis[]= new boolean[V];
   boolean rec[]= new boolean[V];
   System.out.println();
-        System.out.println("Is graph Cyclic :-"+isCycleDirected(graph, vis, 0, rec));
+
+  for (int i = 0; i < V; i++) {
+    if(!vis[i]){
+System.out.println("Is graph Cyclic :-"+isCycleDirected(graph, vis, i, rec));// if graph is broken into components
+    }
+  }
+        
     }
 }
